@@ -1,5 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import cors from 'cors';
+import mongoose from 'mongoose';
 import healthRouter from './routes/health';
 import agoraRouter from './routes/agora';
 
@@ -8,12 +10,58 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Parse JSON bodies
 app.use(express.json());
+
+// CORS allowlist from environment (comma-separated). Defaults to localhost:3000 and the Vercel URL.
+const defaultOrigins = 'http://localhost:3000,https://hospital-kohl-ten.vercel.app';
+const allowedOrigins = (process.env.CORS_ORIGINS || defaultOrigins)
+  .split(',')
+  .map((s) => s.trim())
+  .filter(Boolean);
+
+const corsOptions: cors.CorsOptions = {
+  origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
+    // allow requests with no origin (e.g., curl, server-to-server)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) !== -1) return callback(null, true);
+    return callback(new Error('Not allowed by CORS'));
+  },
+};
+
+app.use(cors(corsOptions));
+
+// Routes
 app.use('/health', healthRouter);
 app.use('/agora', agoraRouter);
 
-app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
-});
+const MONGO_URI = process.env.MONGO_URI || '';
+
+async function start() {
+  try {
+    if (!MONGO_URI) {
+      console.warn('MONGO_URI not set. Skipping MongoDB connection.');
+    } else {
+      // Connect to MongoDB via mongoose
+      await mongoose.connect(MONGO_URI, {
+        // options can be added here if desired
+      });
+      console.log('Connected to MongoDB');
+
+      mongoose.connection.on('error', (err: any) => {
+        console.error('MongoDB connection error:', err);
+      });
+    }
+
+    app.listen(PORT, () => {
+      console.log(`Server listening on port ${PORT}`);
+    });
+  } catch (err) {
+    console.error('Failed to start server:', err);
+    process.exit(1);
+  }
+}
+
+start();
 
 export default app;
