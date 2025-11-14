@@ -1,65 +1,118 @@
-import Image from "next/image";
+"use client"
+
+import React, { useState } from "react"
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
 
 export default function Home() {
+  const [meds, setMeds] = useState([
+    { id: 1, name: "Amoxicillin", dose: "500mg", time: "8:00 AM", taken: true },
+    { id: 2, name: "Ibuprofen", dose: "400mg", time: "12:00 PM", taken: true },
+    { id: 3, name: "Vitamin D3", dose: "1000 IU", time: "2:00 PM", taken: false },
+    { id: 4, name: "Amoxicillin", dose: "500mg", time: "8:00 PM", taken: false },
+  ])
+
+  function toggleTaken(id: number) {
+    setMeds((prev) => prev.map((m) => (m.id === id ? { ...m, taken: !m.taken } : m)))
+  }
+
+  const appointments = [
+    { id: 1, title: "Dr. Patel - Follow up", time: "Tomorrow • 10:00 AM" },
+    { id: 2, title: "Dentist - Cleaning", time: "Fri • 2:00 PM" },
+  ]
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="min-h-screen bg-zinc-50 dark:bg-black font-sans p-6">
+      <div className="max-w-6xl mx-auto space-y-6">
+        {/* Top header cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <Card className="p-4">
+            <CardHeader>
+              <CardTitle>Reward Points</CardTitle>
+              <CardDescription>450</CardDescription>
+            </CardHeader>
+          </Card>
+
+          <Card className="p-4">
+            <CardHeader>
+              <CardTitle>Compliance Rate</CardTitle>
+              <CardDescription>100%</CardDescription>
+            </CardHeader>
+          </Card>
+
+          <Card className="p-4">
+            <CardHeader>
+              <CardTitle>Active Medications</CardTitle>
+              <CardDescription>4</CardDescription>
+            </CardHeader>
+          </Card>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+
+        {/* Quick Actions */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Quick Actions</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="flex gap-3">
+              <Button variant="default">Scan Prescription</Button>
+              <Button variant="outline">Book Appointment</Button>
+              <Button variant="ghost">Care Companion</Button>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Today's Medications */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Today's Medications</CardTitle>
+            <CardDescription>{meds.length} doses</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            {meds.map((m) => (
+              <div
+                key={m.id}
+                className="flex items-center justify-between rounded-lg border px-4 py-3 bg-green-50"
+              >
+                <div>
+                  <div className="font-medium">{m.name}</div>
+                  <div className="text-sm text-muted-foreground">{m.dose} • {m.time}</div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Button
+                    variant={m.taken ? "secondary" : "outline"}
+                    onClick={() => toggleTaken(m.id)}
+                  >
+                    {m.taken ? "Taken" : "Mark Taken"}
+                  </Button>
+                </div>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+
+        {/* Today's Appointments */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Today's Appointments</CardTitle>
+            <CardDescription>Upcoming bookings and reminders</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ul className="space-y-3">
+              {appointments.map((a) => (
+                <li key={a.id} className="flex items-center justify-between">
+                  <div>
+                    <div className="font-medium">{a.title}</div>
+                    <div className="text-sm text-muted-foreground">{a.time}</div>
+                  </div>
+                  <Badge className="bg-slate-100 text-slate-800">Upcoming</Badge>
+                </li>
+              ))}
+            </ul>
+          </CardContent>
+        </Card>
+      </div>
     </div>
-  );
+  )
 }
