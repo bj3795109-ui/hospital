@@ -1,0 +1,6195 @@
+{
+	"info": {
+		"_postman_id": "86ca251a-cb81-49f2-bc63-558a9bf2c31f",
+		"name": "Agora Chat 1.3",
+		"description": "# Agora Chat RESTful API Overview\n\nAgora Chat provides RESTful APIs through the REST platform. You can send HTTP requests to the Agora server through your business server to realize real-time communication on the server side.\n\n## REST Platform Architecture\n\nThe Agora Chat REST platform provides a multi-tenant architecture to manage resources in the form of a Collection. A Collection contains the following:\n\n- Database\n- Organizations (orgs)\n- Apps (apps)\n- Users (users)\n- Chat groups (chatgroups)\n- Chat messages (chatmessages)\n- Chat files (chatfiles)\n    \n\nThe user data of different orgs is isolated from each other. Under the same org, the user data of different apps is also isolated from each other. The data structure of an org is as follows:\n\n<img src=\"https://content.pstmn.io/bdad405a-b8f5-441d-a479-b7e2bf486f53/YWdvcmFfY2hhdF9vdmVydmlldy5wbmc=\">\n\n## Prerequisites\n\nEnsure that you meet the following requirements before calling the Agora Chat RESTful API:\n\n- You have [enabled and configured Agora Chat in the Console](https://docs.agora.io/en/agora-chat/enable_agora_chat?platform=RESTful).\n- You have retrieved an app token from the app server. For details, see [Authentication with App Token](https://docs.agora.io/en/agora-chat/generate_app_tokens?platform=RESTful).",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "50088369",
+		"_collection_link": "https://fyash786-9075184.postman.co/workspace/Yash-Gupta's-Workspace~b48d26d9-8d3a-4050-8566-3f7295d22730/collection/50088369-86ca251a-cb81-49f2-bc63-558a9bf2c31f?action=share&source=collection_link&creator=50088369"
+	},
+	"item": [
+		{
+			"name": "User system registration",
+			"item": [
+				{
+					"name": "Registering a user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"{{username1}}\"\n}"
+						},
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/users",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registering multiple users",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\n  \"username\": \"{{username1}}\"\n},\n{\n  \"username\": \"{{username2}}\"\n}\n]"
+						},
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/users",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Querying a user",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/users/{{username1}}",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"users",
+								"{{username1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Querying multiple users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/users?limit=100&cursor=",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"users"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "100"
+								},
+								{
+									"key": "cursor",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deleting a user",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/users/{{username1}}",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"users",
+								"{{username1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deleting multiple users",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/users?limit=100&cursor=",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"users"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "100"
+								},
+								{
+									"key": "cursor",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modifying the password",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \n   \"newpassword\": \"user1newpassword\"  \n }"
+						},
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/users/{{username1}}/password",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"users",
+								"{{username1}}",
+								"password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Banning a user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/users/{{username1}}/deactivate",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"users",
+								"{{username1}}",
+								"deactivate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Unbanning a user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/users/{{username1}}/activate",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"users",
+								"{{username1}}",
+								"activate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Forcing a user offline",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/users/{{username1}}/disconnect",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"users",
+								"{{username1}}",
+								"disconnect"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Querying the online state",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/users/{{username1}}/status",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"users",
+								"{{username1}}",
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Querying the online state of multiple users",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"usernames\":[\"{{username1}}\",\"{{username2}}\"]}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/users/batch/status",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"users",
+								"batch",
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Querying the number of offline messages",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/users/{{username1}}/offline_msg_count",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"users",
+								"{{username1}}",
+								"offline_msg_count"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Querying the deliver state of offline message",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/users/{{username1}}/offline_msg_status/{{msg_id}}",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"users",
+								"{{username1}}",
+								"offline_msg_status",
+								"{{msg_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Message management",
+			"item": [
+				{
+					"name": "Send a message",
+					"item": [
+						{
+							"name": "Sending a one-one message",
+							"item": [
+								{
+									"name": "Send a message Text",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"from\": \"{{username1}}\",\n    \"to\": [\"{{username2}}\",\"{{username3}}\"],\n    \"type\": \"txt\",\n\t\"body\": {\n        \"type\": \"txt\",\n        \"msg\": \"testmessage\"\n    }\t\n}"
+										},
+										"url": {
+											"raw": "{{request_url}}/{{org_name}}/{{app_name}}/messages/users",
+											"host": [
+												"{{request_url}}"
+											],
+											"path": [
+												"{{org_name}}",
+												"{{app_name}}",
+												"messages",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Send a message Image",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"from\":\"{{username1}}\",\n    \"to\":[\"{{username2}}\",\"{{username3}}\"],\n    \"type\":\"img\",\n    \"body\":{\n        \"filename\":\"testimg.jpg\",\n        \"secret\":\"VfEpSmSvEeS7yU8dwa9rAQc-DIL2HhmpujTNfSTsrDt6eNb_\",\n        \"url\":\"https://chat.agora.io\",\n        \"size\":{\n            \"width\":480,\"height\":720\n        }\n    }\n}"
+										},
+										"url": {
+											"raw": "{{request_url}}/{{org_name}}/{{app_name}}/messages/users",
+											"host": [
+												"{{request_url}}"
+											],
+											"path": [
+												"{{org_name}}",
+												"{{app_name}}",
+												"messages",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Send a message  Audio",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"from\":\"{{username1}}\",\n    \"to\":[\"{{username2}}\",\"{{username3}}\"],\n    \"type\":\"audio\",\n    \"body\":{\n        \"url\": \"https://chat.agora.io\",\n        \"filename\": \"testaudio.amr\",\n        \"length\": 10,\n        \"secret\": \"Hfx_WlXGEeSdDW-SuX2EaZcXDC7ZEig3OgKZye9IzKOwoCjM\"\n    }\n}"
+										},
+										"url": {
+											"raw": "{{request_url}}/{{org_name}}/{{app_name}}/messages/users",
+											"host": [
+												"{{request_url}}"
+											],
+											"path": [
+												"{{org_name}}",
+												"{{app_name}}",
+												"messages",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Send a message Video",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"from\":\"{{username1}}\",\n    \"to\":[\"{{username2}}\",\"{{username3}}\"],\n    \"type\":\"video\",\n    \"body\":{\n        \"filename\" : \"testvideo.mp4\",\n        \"thumb\" : \"https://chat.agora.io\",\n        \"length\" : 0,\n        \"secret\":\"VfEpSmSvEeS7yU8dwa9rAQc-DIL2HhmpujTNfSTsrDt6eNb_\",\n        \"file_length\" : 58103,\n        \"thumb_secret\" : \"ZyebKn9pEeSSfY03ROk7ND24zUf74s7HpPN1oMV-1JxN2O2I\",\n        \"url\" : \"https://chat.agora.io\"\n    }\n}"
+										},
+										"url": {
+											"raw": "{{request_url}}/{{org_name}}/{{app_name}}/messages/users",
+											"host": [
+												"{{request_url}}"
+											],
+											"path": [
+												"{{org_name}}",
+												"{{app_name}}",
+												"messages",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Send a message File",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"from\":\"{{username1}}\",\n    \"to\":[\"{{username2}}\",\"{{username3}}\"],\n    \"type\":\"file\",\n    \"body\":{\n        \"filename\" : \"testfile.txt\",\n        \"secret\":\"VfEpSmSvEeS7yU8dwa9rAQc-DIL2HhmpujTNfSTsrDt6eNb_\",\n        \"url\" : \"https://chat.agora.io\"\n    }\n}"
+										},
+										"url": {
+											"raw": "{{request_url}}/{{org_name}}/{{app_name}}/messages/users",
+											"host": [
+												"{{request_url}}"
+											],
+											"path": [
+												"{{org_name}}",
+												"{{app_name}}",
+												"messages",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Send a message Location",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"from\":\"{{username1}}\",\n    \"to\":[\"{{username2}}\",\"{{username3}}\"],\n    \"type\":\"loc\",\n    \"body\":{\n        \"lat\": \"37.391330\",\n        \"lng\":\"-121.977910\",\n        \"addr\":\"2804 Mission College Blvd, Santa Clara, CA 95054\"\n    }\n}"
+										},
+										"url": {
+											"raw": "{{request_url}}/{{org_name}}/{{app_name}}/messages/users",
+											"host": [
+												"{{request_url}}"
+											],
+											"path": [
+												"{{org_name}}",
+												"{{app_name}}",
+												"messages",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Send a message Command",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"from\":\"{{username1}}\",\n    \"to\":[\"{{username2}}\",\"{{username3}}\"],\n    \"type\":\"cmd\",\n    \"body\":{\n        \"action\":\"action1\"\n    }\n}"
+										},
+										"url": {
+											"raw": "{{request_url}}/{{org_name}}/{{app_name}}/messages/users",
+											"host": [
+												"{{request_url}}"
+											],
+											"path": [
+												"{{org_name}}",
+												"{{app_name}}",
+												"messages",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Send a message Custom",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"from\":\"{{username1}}\",\n    \"to\":[\"{{username2}}\",\"{{username3}}\"],\n    \"type\":\"custom\",\n    \"body\":{\n        \"customEvent\":\"gift_1\", \n        \"customExts\":{\n            \"name\":\"flower\",\n            \"size\":\"16\",\n            \"price\":\"100\"\n        }\n    }, \n    \"ext\":{\n        \"attr1\":\"test\"\n    }\n}"
+										},
+										"url": {
+											"raw": "{{request_url}}/{{org_name}}/{{app_name}}/messages/users",
+											"host": [
+												"{{request_url}}"
+											],
+											"path": [
+												"{{org_name}}",
+												"{{app_name}}",
+												"messages",
+												"users"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Sending a group message",
+							"item": [
+								{
+									"name": "Send a group message Text",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"from\": \"{{username1}}\",\n    \"to\": [\"{{group_id}}\"],\n    \"type\": \"txt\",\n\t\"body\": {\n        \"type\": \"txt\",\n        \"msg\": \"testmessage\"\n    }\t\n}"
+										},
+										"url": {
+											"raw": "{{request_url}}/{{org_name}}/{{app_name}}/messages/chatgroups",
+											"host": [
+												"{{request_url}}"
+											],
+											"path": [
+												"{{org_name}}",
+												"{{app_name}}",
+												"messages",
+												"chatgroups"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Send a group message Image",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"from\":\"{{username1}}\",\n    \"to\": [\"{{group_id}}\"],\n    \"type\":\"img\",\n    \"body\":{\n        \"filename\":\"testimg.jpg\",\n        \"secret\":\"VfEpSmSvEeS7yU8dwa9rAQc-DIL2HhmpujTNfSTsrDt6eNb_\",\n        \"url\":\"https://chat.agora.io\",\n        \"size\":{\n            \"width\":480,\"height\":720\n        }\n    }\n}"
+										},
+										"url": {
+											"raw": "{{request_url}}/{{org_name}}/{{app_name}}/messages/chatgroups",
+											"host": [
+												"{{request_url}}"
+											],
+											"path": [
+												"{{org_name}}",
+												"{{app_name}}",
+												"messages",
+												"chatgroups"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Send a group message  Audio",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"from\":\"{{username1}}\",\n    \"to\": [\"{{group_id}}\"],\n    \"type\":\"audio\",\n    \"body\":{\n        \"url\": \"https://chat.agora.io\",\n        \"filename\": \"testaudio.amr\",\n        \"length\": 10,\n        \"secret\": \"Hfx_WlXGEeSdDW-SuX2EaZcXDC7ZEig3OgKZye9IzKOwoCjM\"\n    }\n}"
+										},
+										"url": {
+											"raw": "{{request_url}}/{{org_name}}/{{app_name}}/messages/chatgroups",
+											"host": [
+												"{{request_url}}"
+											],
+											"path": [
+												"{{org_name}}",
+												"{{app_name}}",
+												"messages",
+												"chatgroups"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Send a group message Video",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"from\":\"{{username1}}\",\n    \"to\": [\"{{group_id}}\"],\n    \"type\":\"video\",\n    \"body\":{\n        \"filename\" : \"testvideo.mp4\",\n        \"thumb\" : \"https://chat.agora.io\",\n        \"length\" : 0,\"secret\":\"VfEpSmSvEeS7yU8dwa9rAQc-DIL2HhmpujTNfSTsrDt6eNb_\",\n        \"file_length\" : 58103,\n        \"thumb_secret\" : \"ZyebKn9pEeSSfY03ROk7ND24zUf74s7HpPN1oMV-1JxN2O2I\",\n        \"url\" : \"https://chat.agora.io\"\n    }\n}"
+										},
+										"url": {
+											"raw": "{{request_url}}/{{org_name}}/{{app_name}}/messages/chatgroups",
+											"host": [
+												"{{request_url}}"
+											],
+											"path": [
+												"{{org_name}}",
+												"{{app_name}}",
+												"messages",
+												"chatgroups"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Send a group message File",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"from\":\"{{username1}}\",\n    \"to\": [\"{{group_id}}\"],\n    \"type\":\"file\",\n    \"body\":{\n        \"filename\" : \"testfile.txt\",\n        \"secret\":\"VfEpSmSvEeS7yU8dwa9rAQc-DIL2HhmpujTNfSTsrDt6eNb_\",\n        \"url\" : \"https://chat.agora.io\"\n    }\n}"
+										},
+										"url": {
+											"raw": "{{request_url}}/{{org_name}}/{{app_name}}/messages/chatgroups",
+											"host": [
+												"{{request_url}}"
+											],
+											"path": [
+												"{{org_name}}",
+												"{{app_name}}",
+												"messages",
+												"chatgroups"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "send a group message Location",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"from\":\"{{username1}}\",\n    \"to\": [\"{{group_id}}\"],\n    \"type\":\"loc\",\n    \"body\":{\n        \"lat\": \"37.391330\",\n        \"lng\":\"-121.977910\",\n        \"addr\":\"2804 Mission College Blvd, Santa Clara, CA 95054\"\n    }\n}"
+										},
+										"url": {
+											"raw": "{{request_url}}/{{org_name}}/{{app_name}}/messages/chatgroups",
+											"host": [
+												"{{request_url}}"
+											],
+											"path": [
+												"{{org_name}}",
+												"{{app_name}}",
+												"messages",
+												"chatgroups"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Send a group message Command",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"from\":\"{{username1}}\",\n    \"to\": [\"{{group_id}}\"],\n    \"type\":\"cmd\",\n    \"body\":{\n        \"action\":\"action1\"\n    }\n}"
+										},
+										"url": {
+											"raw": "{{request_url}}/{{org_name}}/{{app_name}}/messages/chatgroups",
+											"host": [
+												"{{request_url}}"
+											],
+											"path": [
+												"{{org_name}}",
+												"{{app_name}}",
+												"messages",
+												"chatgroups"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Send a group message Custom",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"from\":\"{{username1}}\",\n    \"to\": [\"{{group_id}}\"],\n    \"type\":\"custom\",\n    \"body\":{\n        \"customEvent\":\"gift_1\", \n        \"customExts\":{\n            \"name\":\"flower\",\n            \"size\":\"16\",\n            \"price\":\"100\"\n        }\n    }, \n    \"ext\":{\n        \"attr1\":\"test\"\n    }\n}"
+										},
+										"url": {
+											"raw": "{{request_url}}/{{org_name}}/{{app_name}}/messages/chatgroups",
+											"host": [
+												"{{request_url}}"
+											],
+											"path": [
+												"{{org_name}}",
+												"{{app_name}}",
+												"messages",
+												"chatgroups"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete conversations from the server",
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"channel\": \"{{group_id}}\",\n    \"type\": \"groupchat\",\n    \"delete_roam\": true\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{request_url}}/{{org_name}}/{{app_name}}/users/{{username1}}/user_channel",
+											"host": [
+												"{{request_url}}"
+											],
+											"path": [
+												"{{org_name}}",
+												"{{app_name}}",
+												"users",
+												"{{username1}}",
+												"user_channel"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Sending a chat room message",
+							"item": [
+								{
+									"name": "Send a chat room message Text",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"from\": \"{{username1}}\",\n    \"to\": [\"{{chatroom_id}}\"],\n    \"type\": \"txt\",\n\t\"body\": {\n        \"type\": \"txt\",\n        \"msg\": \"testmessage\"\n    }\t\n}"
+										},
+										"url": {
+											"raw": "{{request_url}}/{{org_name}}/{{app_name}}/messages/chatrooms",
+											"host": [
+												"{{request_url}}"
+											],
+											"path": [
+												"{{org_name}}",
+												"{{app_name}}",
+												"messages",
+												"chatrooms"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Send a chat room message Image",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"from\":\"{{username1}}\",\n    \"to\": [\"{{chatroom_id}}\"],\n    \"type\":\"img\",\n    \"body\":{\n        \"filename\":\"testimg.jpg\",\n        \"secret\":\"VfEpSmSvEeS7yU8dwa9rAQc-DIL2HhmpujTNfSTsrDt6eNb_\",\n        \"url\":\"https://chat.agora.io\",\n        \"size\":{\n            \"width\":480,\"height\":720\n        }\n    }\n}"
+										},
+										"url": {
+											"raw": "{{request_url}}/{{org_name}}/{{app_name}}/messages/chatrooms",
+											"host": [
+												"{{request_url}}"
+											],
+											"path": [
+												"{{org_name}}",
+												"{{app_name}}",
+												"messages",
+												"chatrooms"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Send a chat room message  Audio",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"from\":\"{{username1}}\",\n    \"to\": [\"{{chatroom_id}}\"],\n    \"type\":\"audio\",\n    \"body\":{\n        \"url\": \"https://chat.agora.io\",\n        \"filename\": \"testaudio.amr\",\n        \"length\": 10,\n        \"secret\": \"Hfx_WlXGEeSdDW-SuX2EaZcXDC7ZEig3OgKZye9IzKOwoCjM\"\n    }\n}"
+										},
+										"url": {
+											"raw": "{{request_url}}/{{org_name}}/{{app_name}}/messages/chatrooms",
+											"host": [
+												"{{request_url}}"
+											],
+											"path": [
+												"{{org_name}}",
+												"{{app_name}}",
+												"messages",
+												"chatrooms"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Send a chat room message Video",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"from\":\"{{username1}}\",\n    \"to\": [\"{{chatroom_id}}\"],\n    \"type\":\"video\",\n    \"body\":{\n        \"filename\" : \"testvideo.mp4\",\n        \"thumb\" : \"https://chat.agora.io\",\n        \"length\" : 0,\"secret\":\"VfEpSmSvEeS7yU8dwa9rAQc-DIL2HhmpujTNfSTsrDt6eNb_\",\n        \"file_length\" : 58103,\n        \"thumb_secret\" : \"ZyebKn9pEeSSfY03ROk7ND24zUf74s7HpPN1oMV-1JxN2O2I\",\n        \"url\" : \"https://chat.agora.io\"\n    }\n}"
+										},
+										"url": {
+											"raw": "{{request_url}}/{{org_name}}/{{app_name}}/messages/chatrooms",
+											"host": [
+												"{{request_url}}"
+											],
+											"path": [
+												"{{org_name}}",
+												"{{app_name}}",
+												"messages",
+												"chatrooms"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Send a chat room message File",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"from\":\"{{username1}}\",\n    \"to\": [\"{{chatroom_id}}\"],\n    \"type\":\"file\",\n    \"body\":{\n        \"filename\" : \"testfile.txt\",\n        \"secret\":\"VfEpSmSvEeS7yU8dwa9rAQc-DIL2HhmpujTNfSTsrDt6eNb_\",\n        \"url\" : \"https://chat.agora.io\"\n    }\n}"
+										},
+										"url": {
+											"raw": "{{request_url}}/{{org_name}}/{{app_name}}/messages/chatrooms",
+											"host": [
+												"{{request_url}}"
+											],
+											"path": [
+												"{{org_name}}",
+												"{{app_name}}",
+												"messages",
+												"chatrooms"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Send a chat room message Location",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"from\":\"{{username1}}\",\n    \"to\": [\"{{chatroom_id}}\"],\n    \"type\":\"loc\",\n    \"body\":{\n        \"lat\": \"37.391330\",\n        \"lng\":\"-121.977910\",\n        \"addr\":\"2804 Mission College Blvd, Santa Clara, CA 95054\"\n    }\n}"
+										},
+										"url": {
+											"raw": "{{request_url}}/{{org_name}}/{{app_name}}/messages/chatrooms",
+											"host": [
+												"{{request_url}}"
+											],
+											"path": [
+												"{{org_name}}",
+												"{{app_name}}",
+												"messages",
+												"chatrooms"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Send a chat room message Command",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"from\":\"{{username1}}\",\n    \"to\": [\"{{chatroom_id}}\"],\n    \"type\":\"cmd\",\n    \"body\":{\n        \"action\":\"action1\"\n    }\n}"
+										},
+										"url": {
+											"raw": "{{request_url}}/{{org_name}}/{{app_name}}/messages/chatrooms",
+											"host": [
+												"{{request_url}}"
+											],
+											"path": [
+												"{{org_name}}",
+												"{{app_name}}",
+												"messages",
+												"chatrooms"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Send a chat room message Custom",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"from\":\"{{username1}}\",\n    \"to\": [\"{{chatroom_id}}\"],\n    \"type\":\"custom\",\n    \"body\":{\n        \"customEvent\":\"gift_1\", \n        \"customExts\":{\n            \"name\":\"flower\",\n            \"size\":\"16\",\n            \"price\":\"100\"\n        }\n    }, \n    \"ext\":{\n        \"attr1\":\"test\"\n    }\n}"
+										},
+										"url": {
+											"raw": "{{request_url}}/{{org_name}}/{{app_name}}/messages/chatrooms",
+											"host": [
+												"{{request_url}}"
+											],
+											"path": [
+												"{{org_name}}",
+												"{{app_name}}",
+												"messages",
+												"chatrooms"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Sending a broadcast message to all chat rooms under an app",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"msg\": {\n        \"type\": \"txt\",\n        \"msg\": \"send broadcast to all chatroom\"\n    },\n    \"from\": \"admin\",\n    \"ext\": {\n        \"extKey\": \"extValue\"\n    },\n    \"chatroom_msg_level\": \"low\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{request_url}}/{{org_name}}/{{app_name}}/messages/broadcast",
+											"host": [
+												"{{request_url}}"
+											],
+											"path": [
+												"{{org_name}}",
+												"{{app_name}}",
+												"messages",
+												"broadcast"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Upload and download file",
+					"item": [
+						{
+							"name": "Upload a file",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "restrict-access",
+										"value": "true",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"description": "select a file from your machine",
+											"type": "file",
+											"src": "xRbQYiHOk/filename.png"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatfiles",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatfiles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Download a file",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/octet-stream"
+									},
+									{
+										"key": "share-secret",
+										"value": "{{share_secret}}",
+										"description": "optional in restrict-access is set to true"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatfiles/{{file_uuid}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatfiles",
+										"{{file_uuid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Download a thumbnail",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/octet-stream"
+									},
+									{
+										"key": "thumbnail",
+										"value": "true"
+									},
+									{
+										"key": "share-secret",
+										"value": "{{share_secret}}",
+										"description": "optional in restrict-access is set to true"
+									},
+									{
+										"key": "Accept",
+										"value": "application/octet-stream",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatfiles/{{file_uuid}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatfiles",
+										"{{file_uuid}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Retrieve historical messages",
+					"item": [
+						{
+							"name": "Retrieve historical messages",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatmessages/{{time}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatmessages",
+										"{{time}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Recall a message",
+					"item": [
+						{
+							"name": "Recall one-to-one chat message",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"msg_id\": \"{{msg_id}}\",\n    \"chat_type\": \"chat\",\n    \"from\": \"{{username1}}\",\n    \"to\": \"{{username2}}\",\n    \"force\": true\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/messages/msg_recall",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"messages",
+										"msg_recall"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Recall chat group message",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"msg_id\": \"{{msg_id}}\",\n    \"chat_type\": \"groupchat\",\n    \"from\": \"{{username1}}\",\n    \"to\": \"{{group_id}}\",\n    \"force\": true\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/messages/msg_recall",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"messages",
+										"msg_recall"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Recall chat room message",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"msg_id\": \"{{msg_id}}\",\n    \"chat_type\": \"chatroom\",\n    \"from\": \"{{username1}}\",\n    \"to\": \"{{chatroom_id}}\",\n    \"force\": true\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/messages/msg_recall",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"messages",
+										"msg_recall"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Delete conversations from the server",
+					"item": [
+						{
+							"name": "Delete conversations from the server",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"channel\": \"{{username1}}\",\n    \"type\": \"chat\",\n    \"delete_roam\": true\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/users/{{username1}}/user_channel",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"users",
+										"{{username1}}",
+										"user_channel"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Import messages",
+					"item": [
+						{
+							"name": "Import one-one chat text message",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"target\": \"{{username1}}\",\n    \"type\": \"txt\",\n    \"body\": {\n        \"msg\": \"import message.\"\n    },\n    \"from\": \"{{username2}}\",\n    \"is_ack_read\": true,\n    \"msg_timestamp\": 1656906628428\n}"
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/messages/users/import",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"messages",
+										"users",
+										"import"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Import one-one chat image message",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"target\": \"{{username1}}\",\n    \"type\": \"img\",\n    \"body\": {\n        \"url\": \"<YourImageUrl>\",\n        \"filename\": \"<ImageFileName>\",\n        \"size\": {\n            \"width\": 1080,\n            \"height\": 1920\n        }\n    },\n    \"from\": \"{{username1}}\",\n    \"is_ack_read\": true,\n    \"msg_timestamp\": 1656906628428,\n    \"need_download\": true\n}"
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/messages/users/import",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"messages",
+										"users",
+										"import"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Import group text message",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"target\": \"{{group_id}}\",\n    \"type\": \"txt\",\n    \"body\": {\n        \"msg\": \"import message.\"\n    },\n    \"from\": \"{{username2}}\",\n    \"is_ack_read\": true,\n    \"msg_timestamp\": 1656906628428\n}"
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/messages/chatgroups/import",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"messages",
+										"chatgroups",
+										"import"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Import group image message",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"target\": \"{{group_id}}\",\n    \"type\": \"img\",\n    \"body\": {\n        \"url\": \"<YourImageUrl>\",\n        \"filename\": \"<ImageFileName>\",\n        \"size\": {\n            \"width\": 1080,\n            \"height\": 1920\n        }\n    },\n    \"from\": \"{{username1}}\",\n    \"is_ack_read\": true,\n    \"msg_timestamp\": 1656906628428,\n    \"need_download\": true\n}"
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/messages/chatgroups/import",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"messages",
+										"chatgroups",
+										"import"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Modifying a text or custom message",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"user\": \"{{username1}}\",\n  \"new_msg\": { \n    \"type\": \"txt\",\n    \"msg\": \"update message content\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/messages/rewrite/{{msg_id}}",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"messages",
+								"rewrite",
+								"{{msg_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Contact management",
+			"item": [
+				{
+					"name": "Adding a contact",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/users/{{username1}}/contacts/users/{{username2}}",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"users",
+								"{{username1}}",
+								"contacts",
+								"users",
+								"{{username2}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Removing a contact",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/users/{{username1}}/contacts/users/{{username2}}",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"users",
+								"{{username1}}",
+								"contacts",
+								"users",
+								"{{username2}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieving the contact list",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/users/{{username1}}/contacts/users",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"users",
+								"{{username1}}",
+								"contacts",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Adding users to the block list",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"usernames\": [\"{{username2}}\"]\n}"
+						},
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/users/{{username1}}/blocks/users",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"users",
+								"{{username1}}",
+								"blocks",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieving the block list",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/users/{{username1}}/blocks/users",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"users",
+								"{{username1}}",
+								"blocks",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Removing a user from the block list",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/users/{{username1}}/blocks/users/{{username2}}",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"users",
+								"{{username1}}",
+								"blocks",
+								"users",
+								"{{username2}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieving the contact list with pagination",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/users/{{username1}}/contacts?limit={{limit}}&cursor={{cursor}}&needReturnRemark={true/false}",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"users",
+								"{{username1}}",
+								"contacts"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "{{limit}}"
+								},
+								{
+									"key": "cursor",
+									"value": "{{cursor}}"
+								},
+								{
+									"key": "needReturnRemark",
+									"value": "{true/false}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Attributes Management",
+			"item": [
+				{
+					"name": "Setting user attributes",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "nickname",
+									"value": "jack",
+									"type": "text"
+								},
+								{
+									"key": "birth",
+									"value": "199089",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/metadata/user/{{username1}}",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"metadata",
+								"user",
+								"{{username1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieving user attributes",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/metadata/user/{{username1}}",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"metadata",
+								"user",
+								"{{username1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieving the user attributes of multiple users",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"properties\": [\n    \"avatar\",\n    \"ext\",\n    \"nickname\"\n  ],\n  \"targets\": [\n    \"{{username1}}\",\n    \"{{username2}}\"\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/metadata/user/get",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"metadata",
+								"user",
+								"get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieving the total size of user attributes",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/metadata/user/capacity",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"metadata",
+								"user",
+								"capacity"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deleting user attributes",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/metadata/user/{{username1}}",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"metadata",
+								"user",
+								"{{username1}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Chat room management",
+			"item": [
+				{
+					"name": "Manage chat rooms",
+					"item": [
+						{
+							"name": "Creating a chat room",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \n   \"name\": \"testchatroom1\",  \n   \"description\": \"test\",  \n   \"maxusers\": 300,  \n   \"owner\": \"{{username1}}\",  \n   \"members\": [  \n     \"{{username2}}\"  \n   ]  \n }"
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatrooms",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatrooms"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieving basic information of all chat rooms",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatrooms",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatrooms"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieving chat rooms that a user joins",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/users/{{username1}}/joined_chatrooms",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"users",
+										"{{username1}}",
+										"joined_chatrooms"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieving detailed information of the specified chat rooms",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatrooms/{{chatroom_id}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatrooms",
+										"{{chatroom_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Modifying chat room information",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{  \n   \"name\": \"testchatroom\",  \n   \"description\": \"test\",  \n   \"maxusers\": 300  \n }"
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatrooms/{{chatroom_id}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatrooms",
+										"{{chatroom_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deleting the specified chat room",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatrooms/{{chatroom_id}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatrooms",
+										"{{chatroom_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieving a chat room announcement",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatrooms/{{chatroom_id}}/announcement",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatrooms",
+										"{{chatroom_id}}",
+										"announcement"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Modifying the announce of a chat room",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"announcement\": \"chat room announcement\"\n}"
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatrooms/{{chatroom_id}}/announcement",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatrooms",
+										"{{chatroom_id}}",
+										"announcement"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Manage chat room attributes",
+					"item": [
+						{
+							"name": "Setting custom attributes",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{  \n   \"metaData\": {\n       \"chatroom_nickname\" : \"jack\"\n   },\n   \"autoDelete\": \"DELETE\"\n }"
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/metadata/chatroom/{{chatroom_id}}/user/{{username2}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"metadata",
+										"chatroom",
+										"{{chatroom_id}}",
+										"user",
+										"{{username2}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieving custom attributes",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{  \n   \"keys\": [\"chatroom_nickname\"]\n }"
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/metadata/chatroom/{{chatroom_id}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"metadata",
+										"chatroom",
+										"{{chatroom_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remove custom attributes",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{  \n   \"keys\": [\"chatroom_nickname\"]\n }"
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/metadata/chatroom/{{chatroom_id}}/user/{{username2}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"metadata",
+										"chatroom",
+										"{{chatroom_id}}",
+										"user",
+										"{{username2}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Forcibly set custom attributes",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{  \n   \"metaData\": {\n       \"chatroom_nickname\" : \"jack\"\n   },\n   \"autoDelete\": \"DELETE\"\n }"
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/metadata/chatroom/{{chatroom_id}}/user/{{username2}}/forced",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"metadata",
+										"chatroom",
+										"{{chatroom_id}}",
+										"user",
+										"{{username2}}",
+										"forced"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Forcibly remove custom attributes",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{  \n   \"keys\": [\"chatroom_nickname\"]\n }"
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/metadata/chatroom/{{chatroom_id}}/user/{{username2}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"metadata",
+										"chatroom",
+										"{{chatroom_id}}",
+										"user",
+										"{{username2}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Manage chat room members",
+					"item": [
+						{
+							"name": "Adding a chat room member",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatrooms/{{chatroom_id}}/users/{{username2}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatrooms",
+										"{{chatroom_id}}",
+										"users",
+										"{{username2}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Adding multiple chat room members",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{  \n   \"usernames\": [  \n     \"{{username2}}\",\"{{username3}}\"  \n   ]  \n }"
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatrooms/{{chatroom_id}}/users",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatrooms",
+										"{{chatroom_id}}",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieving chat room members with pagination",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatrooms/{{chatroom_id}}/users",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatrooms",
+										"{{chatroom_id}}",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Removing the specified chat room member",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatrooms/{{chatroom_id}}/users/{{username2}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatrooms",
+										"{{chatroom_id}}",
+										"users",
+										"{{username2}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Removing multiple chat room members",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatrooms/{{chatroom_id}}/users/{{username2}},{{username3}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatrooms",
+										"{{chatroom_id}}",
+										"users",
+										"{{username2}},{{username3}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Adding a chat room admin",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"newadmin\":\"{{username2}}\"}"
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatrooms/{{chatroom_id}}/admin",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatrooms",
+										"{{chatroom_id}}",
+										"admin"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieving chat room admins",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatrooms/{{chatroom_id}}/admin",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatrooms",
+										"{{chatroom_id}}",
+										"admin"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Removing chat room admins",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatrooms/{{chatroom_id}}/admin/{{username2}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatrooms",
+										"{{chatroom_id}}",
+										"admin",
+										"{{username2}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Manage chat room super admins",
+					"item": [
+						{
+							"name": "Adding a chat room super admin",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"superadmin\": \"{{username2}}\"\n}"
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatrooms/super_admin",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatrooms",
+										"super_admin"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Removing a chat room super admin",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatrooms/super_admin/{{username2}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatrooms",
+										"super_admin",
+										"{{username2}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieving super admins of specified chat rooms with pagination",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"var superAdmin = jsonData.data.id;",
+											"console.log(superAdmin);   ",
+											"pm.collectionVariables.set(\"superAdmin\", superAdmin);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatrooms/super_admin?pagenum=1&pagesize=10",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatrooms",
+										"super_admin"
+									],
+									"query": [
+										{
+											"key": "pagenum",
+											"value": "1"
+										},
+										{
+											"key": "pagesize",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Manage chat room mute list",
+					"item": [
+						{
+							"name": "Muting a chat room member",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"usernames\":[\"{{username2}}\",\"{{username3}}\"],\n    \"mute_duration\":86400000\n}"
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatrooms/{{chatroom_id}}/mute",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatrooms",
+										"{{chatroom_id}}",
+										"mute"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Unmuting chat room members",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatrooms/{{chatroom_id}}/mute/{{username2}},{{username3}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatrooms",
+										"{{chatroom_id}}",
+										"mute",
+										"{{username2}},{{username3}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieving muted chat room members",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatrooms/{{chatroom_id}}/mute",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatrooms",
+										"{{chatroom_id}}",
+										"mute"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Muting all chat room member",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatrooms/{{chatroom_id}}/ban",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatrooms",
+										"{{chatroom_id}}",
+										"ban"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Unmuting all chat room member",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatrooms/{{chatroom_id}}/ban",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatrooms",
+										"{{chatroom_id}}",
+										"ban"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Manage chat room block list",
+					"item": [
+						{
+							"name": "Retrieving the chat room block list",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatrooms/{{chatroom_id}}/blocks/users",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatrooms",
+										"{{chatroom_id}}",
+										"blocks",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Adding a user to the chat room block list",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatrooms/{{chatroom_id}}/blocks/users/{{username2}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatrooms",
+										"{{chatroom_id}}",
+										"blocks",
+										"users",
+										"{{username2}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Adding multiple users to the chat room block list",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{  \n   \"usernames\": [  \n     \"{{username2}}\",\"{{username3}}\"  \n   ]  \n }"
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatrooms/{{chatroom_id}}/blocks/users",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatrooms",
+										"{{chatroom_id}}",
+										"blocks",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Removing a user from the chat room block list",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatrooms/{{chatroom_id}}/blocks/users/{{username2}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatrooms",
+										"{{chatroom_id}}",
+										"blocks",
+										"users",
+										"{{username2}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Removing multiple users from the chat room block list",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatrooms/{{chatroom_id}}/blocks/users/{{username2}},{{username3}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatrooms",
+										"{{chatroom_id}}",
+										"blocks",
+										"users",
+										"{{username2}},{{username3}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Manage chat room allow list",
+					"item": [
+						{
+							"name": "Retrieving the room allow list",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatrooms/{{chatroom_id}}/white/users",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatrooms",
+										"{{chatroom_id}}",
+										"white",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Adding a member to the room allow list",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatrooms/{{chatroom_id}}/white/users/{{username2}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatrooms",
+										"{{chatroom_id}}",
+										"white",
+										"users",
+										"{{username2}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Adding multiple members to the group allow list",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"usernames\" : [\"{{username2}}\", \"{{username3}}\"]\n}"
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatrooms/{{chatroom_id}}/white/users",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatrooms",
+										"{{chatroom_id}}",
+										"white",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Removing members from the group allow list",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatrooms/{{chatroom_id}}/white/users/{{username2}},{{username3}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatrooms",
+										"{{chatroom_id}}",
+										"white",
+										"users",
+										"{{username2}},{{username3}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Chat group management",
+			"item": [
+				{
+					"name": "Create, delete, and retrieve chat groups",
+					"item": [
+						{
+							"name": "Creating a group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{  \n   \"groupname\": \"testgroup1\",  \n   \"desc\": \"test\",  \n   \"public\": true,  \n   \"maxusers\": 300,  \n   \"owner\": \"{{username1}}\",  \n   \"members\": [  \n     \"{{username2}}\"  \n   ]  \n }"
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatgroups",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatgroups"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Banning a chat group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatgroups/{{group_id}}/disable",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatgroups",
+										"{{group_id}}",
+										"disable"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Unbanning a chat group",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatgroups/{{group_id}}/enable",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatgroups",
+										"{{group_id}}",
+										"enable"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieving group details",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatgroups/{{group_id}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatgroups",
+										"{{group_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Modifying group information",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{  \n   \"groupname\": \"testgroup1\",  \n   \"description\": \"test\",  \n   \"maxusers\": 300,\n   \"membersonly\": true,\n   \"allowinvites\": true\n }"
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatgroups/{{group_id}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatgroups",
+										"{{group_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deleting a chat group",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatgroups/{{group_id}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatgroups",
+										"{{group_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieving all chat groups",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatgroups",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatgroups"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieving all the chat groups a user joins",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/users/{{username1}}/joined_chatgroups",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"users",
+										"{{username1}}",
+										"joined_chatgroups"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Manage chat group attributes",
+					"item": [
+						{
+							"name": "Setting chat group member attributes",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{  \n   \"metaData\": {\n       \"group_nickname\" : \"jack\"\n   }\n }"
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/metadata/chatgroup/{{group_id}}/user/{{username2}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"metadata",
+										"chatgroup",
+										"{{group_id}}",
+										"user",
+										"{{username2}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieving a chat group member attributes",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/metadata/chatgroup/{{group_id}}/user/{{username2}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"metadata",
+										"chatgroup",
+										"{{group_id}}",
+										"user",
+										"{{username2}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieving the member attributes of multiple chat group members",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{  \n    \"targets\": [\"{{username2}}\", \"{{username3}}\"],\n    \"properties\": [\"group_nickname\"]\n }"
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/metadata/chatgroup/{{group_id}}/get",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"metadata",
+										"chatgroup",
+										"{{group_id}}",
+										"get"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Manage chat group members",
+					"item": [
+						{
+							"name": "Retrieving group members",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatgroups/{{group_id}}/users",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatgroups",
+										"{{group_id}}",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Adding a user to the chat group",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatgroups/{{group_id}}/users/{{username3}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatgroups",
+										"{{group_id}}",
+										"users",
+										"{{username3}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Adding a user to the chat group Copy",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatgroups/{{group_id}}/users/{{username3}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatgroups",
+										"{{group_id}}",
+										"users",
+										"{{username3}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Adding multiple users to the chat group",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{  \n   \"usernames\": [  \n     \"{{username2}}\",\n     \"{{username3}}\"\n   ]  \n }"
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatgroups/{{group_id}}/users",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatgroups",
+										"{{group_id}}",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Removing a chat group member",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatgroups/{{group_id}}/users/{{username2}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatgroups",
+										"{{group_id}}",
+										"users",
+										"{{username2}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Removing multiple group members",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatgroups/{{group_id}}/users/{{username2}},{{username3}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatgroups",
+										"{{group_id}}",
+										"users",
+										"{{username2}},{{username3}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Setting custom attributes of a group member",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{  \n   \"metaData\": {\n          \"key1\": \"value1\"\n    }  \n }"
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/metadata/chatgroup/{{group_id}}/user/{{username1}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"metadata",
+										"chatgroup",
+										"{{group_id}}",
+										"user",
+										"{{username1}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieving all custom attributes of a group member",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/metadata/chatgroup/{{group_id}}/user/{{username1}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"metadata",
+										"chatgroup",
+										"{{group_id}}",
+										"user",
+										"{{username1}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieving custom attributes of multiple group members by attribute key",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"targets\":[\"{{username1}}\"],\n    \"properties\":[\"key1\"]\n}"
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/metadata/chatgroup/{{group_id}}/get",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"metadata",
+										"chatgroup",
+										"{{group_id}}",
+										"get"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieving group admin list",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatgroups/{{group_id}}/admin",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatgroups",
+										"{{group_id}}",
+										"admin"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Removing a group admin",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatgroups/{{group_id}}/admin/{{username2}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatgroups",
+										"{{group_id}}",
+										"admin",
+										"{{username2}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Transferring group ownership",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{  \n   \"newowner\": \"{{username3}}\"  \n }"
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatgroups/{{group_id}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatgroups",
+										"{{group_id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Manage chat group announcement and files",
+					"item": [
+						{
+							"name": "Retrieving the chat group announcement",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatgroups/{{group_id}}/announcement",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatgroups",
+										"{{group_id}}",
+										"announcement"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Modifying the chat group announcement",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"announcement\" : \"Group announcements…\"\n}"
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatgroups/{{group_id}}/announcement",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatgroups",
+										"{{group_id}}",
+										"announcement"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieving the chat group shared files",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatgroups/{{group_id}}/share_files",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatgroups",
+										"{{group_id}}",
+										"share_files"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Uploading a chat group shared file",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"var file_id = jsonData.data.file_id;",
+											"console.log(file_id);   ",
+											"pm.collectionVariables.set(\"file_id\", file_id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "REBVuc7tD/filename.png"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatgroups/{{group_id}}/share_files",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatgroups",
+										"{{group_id}}",
+										"share_files"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Downloading the chat group shared file",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatgroups/{{group_id}}/share_files/{{file_id}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatgroups",
+										"{{group_id}}",
+										"share_files",
+										"{{file_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deleting a chat group shared file",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatgroups/{{group_id}}/share_files/{{file_id}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatgroups",
+										"{{group_id}}",
+										"share_files",
+										"{{file_id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Manage chat group mute list",
+					"item": [
+						{
+							"name": "Muting a chat group member",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"usernames\":[\"{{username2}}\",\"{{username3}}\"], \"mute_duration\":86400000}"
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatgroups/{{group_id}}/mute",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatgroups",
+										"{{group_id}}",
+										"mute"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Unmuting a chat group member",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatgroups/{{group_id}}/mute/{{username2}},{{username3}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatgroups",
+										"{{group_id}}",
+										"mute",
+										"{{username2}},{{username3}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Muting all chat group member",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"usernames\":[\"{{username2}}\",\"{{username3}}\"], \"mute_duration\":86400000}"
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatgroups/{{group_id}}/ban",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatgroups",
+										"{{group_id}}",
+										"ban"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Unmuting all chat group member",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatgroups/{{group_id}}/ban",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatgroups",
+										"{{group_id}}",
+										"ban"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieving the mute list",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatgroups/{{group_id}}/mute",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatgroups",
+										"{{group_id}}",
+										"mute"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Manage chat group block list",
+					"item": [
+						{
+							"name": "Retrieving the chat group block list",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatgroups/{{group_id}}/blocks/users",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatgroups",
+										"{{group_id}}",
+										"blocks",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Adding a user to the chat group block list",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatgroups/{{group_id}}/blocks/users/{{username2}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatgroups",
+										"{{group_id}}",
+										"blocks",
+										"users",
+										"{{username2}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Adding multiple users to the chat group block list",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{  \n   \"usernames\": [  \n     \"{{username2}}\",\"{{username3}}\"  \n   ]  \n }"
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatgroups/{{group_id}}/blocks/users",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatgroups",
+										"{{group_id}}",
+										"blocks",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Removing a user from the chat group block list",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatgroups/{{group_id}}/blocks/users/{{username2}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatgroups",
+										"{{group_id}}",
+										"blocks",
+										"users",
+										"{{username2}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Removing multiple users from the chat group block list",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatgroups/{{group_id}}/blocks/users/{{username2}},{{username3}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatgroups",
+										"{{group_id}}",
+										"blocks",
+										"users",
+										"{{username2}},{{username3}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Manage chat group allow list",
+					"item": [
+						{
+							"name": "Retrieving the group allow list",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatgroups/{{group_id}}/white/users",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatgroups",
+										"{{group_id}}",
+										"white",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Adding a member to the group allow list",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatgroups/{{group_id}}/white/users/{{username2}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatgroups",
+										"{{group_id}}",
+										"white",
+										"users",
+										"{{username2}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Adding multiple members to the group allow list",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"usernames\" : [\"{{username2}}\", \"{{username3}}\"]\n}"
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatgroups/{{group_id}}/white/users",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatgroups",
+										"{{group_id}}",
+										"white",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Removing members from the group allow list",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/chatgroups/{{group_id}}/white/users/{{username2}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"chatgroups",
+										"{{group_id}}",
+										"white",
+										"users",
+										"{{username2}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Thread management",
+			"item": [
+				{
+					"name": "Create, delete, and retrieve thread",
+					"item": [
+						{
+							"name": "Creating a thread",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"var group_id = jsonData.data.groupid;",
+											"console.log(group_id);",
+											"pm.collectionVariables.set(\"group_id\", group_id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{  \n    \"group_id\": {{group_id}},\n    \"name\": \"thread test\",\n    \"msg_id\": \"{{msg_id}}\",\n    \"owner\": \"{{username1}}\"\n}"
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/thread",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"thread"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Modifying a thread",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{  \n    \"name\": \"thread name\"\n}"
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/thread/{{thread_id}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"thread",
+										"{{thread_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deleting a thread",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/thread/{{thread_id}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"thread",
+										"{{thread_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieving all the threads under the app",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/thread",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"thread"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "The range is [1, 50]",
+											"disabled": true
+										},
+										{
+											"key": "cursor",
+											"value": "The page from which to start retrieving threads. Pass in null or an empty string at the first query",
+											"disabled": true
+										},
+										{
+											"key": "sort",
+											"value": "The order in which to list the query results:\nasc: In chronological order of thread creation.\n(Default) desc: In reverse chronological order of thread creation.",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieving all the threads a user joins under the app",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/threads/user/{{username1}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"threads",
+										"user",
+										"{{username1}}"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "The range is [1, 50]",
+											"disabled": true
+										},
+										{
+											"key": "cursor",
+											"value": "The page from which to start retrieving threads. Pass in null or an empty string at the first query",
+											"disabled": true
+										},
+										{
+											"key": "sort",
+											"value": "The order in which to list the query results:\nasc: In chronological order of thread creation.\n(Default) desc: In reverse chronological order of thread creation.",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieving all the threads a user joins under a chat group",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"accept": true,
+									"accept-encoding": true
+								}
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/threads/chatgroups/{{group_id}}/user/{{username1}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"threads",
+										"chatgroups",
+										"{{group_id}}",
+										"user",
+										"{{username1}}"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "The range is [1, 50]",
+											"disabled": true
+										},
+										{
+											"key": "cursor",
+											"value": "The page from which to start retrieving threads. Pass in null or an empty string at the first query",
+											"disabled": true
+										},
+										{
+											"key": "sort",
+											"value": "The order in which to list the query results:\nasc: In chronological order of thread creation.\n(Default) desc: In reverse chronological order of thread creation.",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Manage thread members",
+					"item": [
+						{
+							"name": "Retrieving thread members",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/thread/{{thread_id}}/users",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"thread",
+										"{{thread_id}}",
+										"users"
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "The range is [1, 50]",
+											"disabled": true
+										},
+										{
+											"key": "cursor",
+											"value": "The page from which to start retrieving threads. Pass in null or an empty string at the first query",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Adding multiple users to a thread",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{  \n   \"usernames\": [  \n     \"{{username2}}\",\n     \"{{username3}}\"\n   ]  \n }"
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/thread/{{thread_id}}/users",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"thread",
+										"{{thread_id}}",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Removing multiple thread members",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"usernames\": [\"{{username1}}, {{username2}}\"]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/thread/{{thread_id}}/users",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"thread",
+										"{{thread_id}}",
+										"users"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Push notification management",
+			"item": [
+				{
+					"name": "Send push notifications",
+					"item": [
+						{
+							"name": "Send push notifications by users",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{  \n    \"targets\": [\n        \"{{username1}}\"\n    ],\n    \"pushMessage\": {\n        \"title\": \"Hello\",\n        \"subTitle\": \"Hello\",\n        \"content\": \"Hello\",\n        \"vivo\": {\n\n        }\n    }\n}"
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/push/single",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"push",
+										"single"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Send push notifications by labels",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{  \n    \"targets\": [\n        \"{{username1}}\"\n    ],\n    \"strategy\": 2,\n    \"pushMessage\": {\n        \"title\": \"Agora PUSH\",\n        \"content\": \"Welcome to Agora Push Service\",\n        \"sub_title\": \"Agora\"\n    }\n}"
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/push/list/label",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"push",
+										"list",
+										"label"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Send push notifications to all users under the app",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{  \n    \"pushMessage\": {\n        \"title\": \"Hello1234\",\n        \"subTitle\": \"Hello\",\n        \"content\": \"Hello\",\n        \"vivo\": {}\n    }\n}"
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/push/task",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"push",
+										"task"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Set push labels",
+					"item": [
+						{
+							"name": "Create a push label",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{  \n    \"name\":\"{{push_label_name}}\",\n    \"description\":\"hi\"\n}"
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/push/label",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"push",
+										"label"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Query the detailed information of a push label",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/push/label/{{push_label_name}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"push",
+										"label",
+										"{{push_label_name}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Query the detailed information of push labels by page",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/push/label",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"push",
+										"label"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete a push label",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/push/label/{{push_label_name}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"push",
+										"label",
+										"{{push_label_name}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add users to a push label",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{  \n    \"usernames\": [\"{{username2}}\"]\n}"
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/push/label/{{push_label_name}}/user",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"push",
+										"label",
+										"{{push_label_name}}",
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Query the specified user under the specified push label",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/push/label/{{push_label_name}}/user/{{username2}}",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"push",
+										"label",
+										"{{push_label_name}}",
+										"user",
+										"{{username2}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Query the detailed information of users under the specified push label by page",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/push/label/{{push_label_name}}/user",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"push",
+										"label",
+										"{{push_label_name}}",
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remove users from a push label",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"usernames\":[\"{{username2}}\"]\n}"
+								},
+								"url": {
+									"raw": "{{request_url}}/{{org_name}}/{{app_name}}/push/label/{{push_label_name}}/user",
+									"host": [
+										"{{request_url}}"
+									],
+									"path": [
+										"{{org_name}}",
+										"{{app_name}}",
+										"push",
+										"label",
+										"{{push_label_name}}",
+										"user"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Offline push configuration",
+			"item": [
+				{
+					"name": "Set the display name in push notifications",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \n    \"nickname\": \"push nickname\"\n}"
+						},
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/users/{{username1}}",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"users",
+								"{{username1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set the display style in push notifications",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \n    \"notification_display_style\": 1\n}"
+						},
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/users/{{username1}}",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"users",
+								"{{username1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set up push notifications",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \n    \"type\":\"NONE\",\n    \"ignoreInterval\":\"21:30-08:00\",\n    \"ignoreDuration\":86400000\n}"
+						},
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/users/{{username1}}/notification/{{chat_type}}/{{username2}}",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"users",
+								"{{username1}}",
+								"notification",
+								"{{chat_type}}",
+								"{{username2}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve the settings of push notifications",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/users/{{username1}}/notification/{{chat_type}}/{{username2}}",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"users",
+								"{{username1}}",
+								"notification",
+								"{{chat_type}}",
+								"{{username2}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set the preferred language of push notifications",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \n    \"translationLanguage\":\"EU\"\n}"
+						},
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/users/{{username1}}/notification/language",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"users",
+								"{{username1}}",
+								"notification",
+								"language"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve the preferred language of push notifications",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/users/{{username1}}/notification/language",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"users",
+								"{{username1}}",
+								"notification",
+								"language"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a push template",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \n    \"name\": \"{{push_template_name}}\",\n    \"title_pattern\": \"hello,{0}\",\n    \"content_pattern\": \"push test,{0}\"\n}"
+						},
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/notification/template",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"notification",
+								"template"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve a push template",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/notification/template/{{push_template_name}}",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"notification",
+								"template",
+								"{{push_template_name}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a push template",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/notification/template/{{push_template_name}}",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"notification",
+								"template",
+								"{{push_template_name}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Binding or unbinding push information",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{    \n    \"device_id\": \"8ce08cad-XXXX-XXXX-86c8-695a0d247cda\",    \n    \"device_token\": \"XXXX\",    \n    \"notifier_name\": \"104410638\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/users/{{username1}}/push/binding",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"users",
+								"{{username1}}",
+								"push",
+								"binding"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieving the push information bound to devices of a user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/users/{{username1}}/push/binding",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"users",
+								"{{username1}}",
+								"push",
+								"binding"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Global mute",
+			"item": [
+				{
+					"name": "Globally mute a specified user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"{{username1}}\",\n    \"chat\": 100,\n    \"groupchat\": 100,\n    \"chatroom\": 100\n}"
+						},
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/mutes",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"mutes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Query the detailed information of global-mute",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/mutes/{{username1}}",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"mutes",
+								"{{username1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve all globally muted users",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/mutes?pageNum=1&pageSize=10",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"mutes"
+							],
+							"query": [
+								{
+									"key": "pageNum",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reaction",
+			"item": [
+				{
+					"name": "Create/Add a reaction",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"msgId\":\"{{msg_id}}\",\n    \"message\":\"{{reaction_message}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/reaction/user/{{username1}}",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"reaction",
+								"user",
+								"{{username1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve reactions with message IDs",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/reaction/user/{{username1}}?msgIdList={{msg_id}}&msgType={{reaction_message_type}}&groupId={{group_id}}",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"reaction",
+								"user",
+								"{{username1}}"
+							],
+							"query": [
+								{
+									"key": "msgIdList",
+									"value": "{{msg_id}}"
+								},
+								{
+									"key": "msgType",
+									"value": "{{reaction_message_type}}"
+								},
+								{
+									"key": "groupId",
+									"value": "{{group_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a reaction",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/reaction/user/{{username1}}?msgId={{msg_id}}&message={{reaction_message}}",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"reaction",
+								"user",
+								"{{username1}}"
+							],
+							"query": [
+								{
+									"key": "msgId",
+									"value": "{{msg_id}}"
+								},
+								{
+									"key": "message",
+									"value": "{{reaction_message}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve the detailed information of the reaction",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/reaction/user/{{username1}}/detail?msgId={{msg_id}}&message={{reaction_message}}&limit=10&cursor=",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"reaction",
+								"user",
+								"{{username1}}",
+								"detail"
+							],
+							"query": [
+								{
+									"key": "msgId",
+									"value": "{{msg_id}}"
+								},
+								{
+									"key": "message",
+									"value": "{{reaction_message}}"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "cursor",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Presence",
+			"item": [
+				{
+					"name": "Set the presence status of a user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ext\": \"123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/users/{{username1}}/presence/{{presence_resource}}/{{presence_user_status}}",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"users",
+								"{{username1}}",
+								"presence",
+								"{{presence_resource}}",
+								"{{presence_user_status}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Subscribe to the presence status of multiple users",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"usernames\": [\"{{username2}}\",\"{{username3}}\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/users/{{username1}}/presence/{{presence_expiry}}",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"users",
+								"{{username1}}",
+								"presence",
+								"{{presence_expiry}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve the presence status of multiple users",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"usernames\": [\"{{username2}}\",\"{{username3}}\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/users/{{username1}}/presence",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"users",
+								"{{username1}}",
+								"presence"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Unsubscribe from the presence status of multiple users",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\"{{username2}}\",\"{{username3}}\"]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/users/{{username1}}/presence",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"users",
+								"{{username1}}",
+								"presence"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve the subscriptions of a user",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/users/{{username1}}/presence/sublist?pageNum=1&pageSize=100",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"users",
+								"{{username1}}",
+								"presence",
+								"sublist"
+							],
+							"query": [
+								{
+									"key": "pageNum",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "100"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Callback",
+			"item": [
+				{
+					"name": "Querying the callback data stored on the Chat server",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/callbacks/storage/info",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"callbacks",
+								"storage",
+								"info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Resending the callback data stored on the Chat server",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"date\": \"202108272230\",\n    \"retry\": 0,\n    \"targetUrl\": \"https://localhost:8000/test\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{request_url}}/{{org_name}}/{{app_name}}/callbacks/storage/retry",
+							"host": [
+								"{{request_url}}"
+							],
+							"path": [
+								"{{org_name}}",
+								"{{app_name}}",
+								"callbacks",
+								"storage",
+								"retry"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Project Status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"{{id}}\", //remove this or this won't run. check which project you are running this on in the id variable\n    \"status\": 1 //remove this or this won't run. 0 for disable, 1 for enable\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.agora.io/dev/v1/project_status",
+					"protocol": "https",
+					"host": [
+						"api",
+						"agora",
+						"io"
+					],
+					"path": [
+						"dev",
+						"v1",
+						"project_status"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{chatToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "request_url",
+			"value": "fill_in.chat.agora.io",
+			"type": "string"
+		},
+		{
+			"key": "org_name",
+			"value": "fill_in",
+			"type": "string"
+		},
+		{
+			"key": "app_name",
+			"value": "fill_in",
+			"type": "string"
+		},
+		{
+			"key": "username1",
+			"value": "fill_in",
+			"type": "string"
+		},
+		{
+			"key": "nickname1",
+			"value": "fill_in",
+			"type": "string"
+		},
+		{
+			"key": "username2",
+			"value": "fill_in",
+			"type": "string"
+		},
+		{
+			"key": "nickname2",
+			"value": "fill_in",
+			"type": "string"
+		},
+		{
+			"key": "username3",
+			"value": "fill_in",
+			"type": "string"
+		},
+		{
+			"key": "nickname3",
+			"value": "fill_in",
+			"type": "string"
+		},
+		{
+			"key": "chatToken",
+			"value": "fill_in",
+			"type": "string"
+		},
+		{
+			"key": "group_id",
+			"value": "fill_in",
+			"type": "string"
+		},
+		{
+			"key": "file_id",
+			"value": "fill_in",
+			"type": "string"
+		},
+		{
+			"key": "file_uuid",
+			"value": "fill_in",
+			"type": "string"
+		},
+		{
+			"key": "share_secret",
+			"value": "fill_in",
+			"type": "string"
+		},
+		{
+			"key": "chatroom_id",
+			"value": "fill_in",
+			"type": "string"
+		},
+		{
+			"key": "superAdmin",
+			"value": "fill_in",
+			"type": "string"
+		},
+		{
+			"key": "cursor",
+			"value": "fill_in",
+			"type": "string"
+		},
+		{
+			"key": "msg_id",
+			"value": "fill_in",
+			"type": "string"
+		},
+		{
+			"key": "thread_id",
+			"value": "fill_in",
+			"type": "string"
+		},
+		{
+			"key": "chat_type",
+			"value": "fill_in",
+			"type": "string"
+		},
+		{
+			"key": "push_template_name",
+			"value": "fill_in",
+			"type": "string"
+		},
+		{
+			"key": "push_label_name",
+			"value": "fill_in",
+			"type": "string"
+		},
+		{
+			"key": "presence_resource",
+			"value": "fill_in",
+			"type": "string"
+		},
+		{
+			"key": "presence_expiry",
+			"value": "fill_in",
+			"type": "string"
+		},
+		{
+			"key": "presence_user_status",
+			"value": "fill_in",
+			"type": "string"
+		},
+		{
+			"key": "reaction_message_type",
+			"value": "fill_in",
+			"type": "string"
+		},
+		{
+			"key": "reaction_message",
+			"value": "fill_in",
+			"type": "string"
+		},
+		{
+			"key": "time",
+			"value": "fill_in",
+			"type": "string"
+		},
+		{
+			"key": "limit",
+			"value": "fill_in",
+			"type": "string"
+		}
+	]
+}
