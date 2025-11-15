@@ -1,4 +1,5 @@
-import webpush from 'web-push'
+import webpush, { PushSubscription } from 'web-push'
+import cron from 'node-cron'
 import { getDb } from './db'
 
 const VAPID_PUBLIC = process.env.VAPID_PUBLIC_KEY || ''
@@ -11,14 +12,15 @@ if (VAPID_PUBLIC && VAPID_PRIVATE) {
   console.warn('VAPID keys not set. Push notifications will not work until VAPID keys are configured.')
 }
 
-type PushSubscriptionJSON = any
+type PushSubscriptionJSON = PushSubscription
 
-const scheduled: Map<string, NodeJS.Timeout> = new Map()
-
+// Save subscription
 export async function saveSubscription(sub: PushSubscriptionJSON) {
   try {
     const db = getDb()
-    await db.collection('pushSubscriptions').updateOne({ endpoint: sub.endpoint }, { $set: sub }, { upsert: true })
+    await db
+      .collection('pushSubscriptions')
+      .updateOne({ endpoint: sub.endpoint }, { $set: sub }, { upsert: true })
     return true
   } catch (e) {
     console.error('Failed to save subscription', e)
@@ -26,81 +28,61 @@ export async function saveSubscription(sub: PushSubscriptionJSON) {
   }
 }
 
-export async function getSubscriptions() {
+// Get all subscriptions
+export async function getSubscriptions(): Promise<PushSubscriptionJSON[]> {
   const db = getDb()
   return db.collection('pushSubscriptions').find({}).toArray()
 }
 
+// Send a notification and remove invalid subscriptions
 export async function sendNotification(sub: PushSubscriptionJSON, payload: any) {
   if (!VAPID_PUBLIC || !VAPID_PRIVATE) return
   try {
     await webpush.sendNotification(sub, typeof payload === 'string' ? payload : JSON.stringify(payload))
-  } catch (e) {
-    console.error('Push send error', e)
+  } catch (err: any) {
+    console.error('Push send error', err)
+    if (err.statusCode === 410 || err.statusCode === 404) {
+      // Subscription is no longer valid, remove it
+      const db = getDb()
+      await db.collection('pushSubscriptions').deleteOne({ endpoint: sub.endpoint })
+      console.log(`Removed invalid subscription: ${sub.endpoint}`)
+    }
   }
 }
 
-function computeNextTriggerTime(timeStr: string) {
-  const parts = timeStr.split(':')
-  if (parts.length < 2) return null
-  const hour = Number(parts[0])
-  const minute = Number(parts[1])
-  if (Number.isNaN(hour) || Number.isNaN(minute)) return null
-  const now = new Date()
-  const target = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hour, minute, 0, 0)
-  if (target.getTime() <= now.getTime()) target.setDate(target.getDate() + 1)
-  return target
-}
-
-export async function scheduleNotificationForMedication(med: any) {
-  try {
-    if (!med || !med._id || !med.time) return
-    const target = computeNextTriggerTime(med.time)
-    if (!target) return
-    const delay = target.getTime() - Date.now()
-    // clear existing
-    cancelScheduledNotification(String(med._id))
-    const timeout = setTimeout(async () => {
-      try {
-        const subs = await getSubscriptions()
-        const payload = {
-          title: `Medication: ${med.name}`,
-          body: `${med.dose} — Time to take your medication.`,
-          data: { medId: med._id }
-        }
-        for (const s of subs) {
-          await sendNotification(s, payload)
-        }
-      } catch (e) {
-        console.error('Scheduled push error', e)
-      }
-      // After firing, schedule next day's notification
-      scheduleNotificationForMedication(med)
-    }, delay)
-    scheduled.set(String(med._id), timeout)
-    console.log(`Scheduled notification for med ${med._id} at ${target.toISOString()}`)
-  } catch (e) {
-    console.error('Failed to schedule notification', e)
-  }
-}
-
-export function cancelScheduledNotification(medId: string) {
-  const t = scheduled.get(medId)
-  if (t) {
-    clearTimeout(t)
-    scheduled.delete(medId)
-  }
-}
-
-export async function rescheduleAll() {
+// Schedule notifications for medications using cron
+export async function scheduleAllNotifications() {
   try {
     const db = getDb()
     const meds = await db.collection('medications').find({}).toArray()
-    for (const m of meds) {
-      scheduleNotificationForMedication(m)
+
+    for (const med of meds) {
+      if (!med.time || !med._id) continue
+      const [hour, minute] = med.time.split(':').map(Number)
+      if (isNaN(hour) || isNaN(minute)) continue
+
+      // Schedule using cron (runs every day at specified hour and minute)
+      const cronExpression = `${minute} ${hour} * * *`
+      cron.schedule(cronExpression, async () => {
+        try {
+          const subs = await getSubscriptions()
+          const payload = {
+            title: `Medication: ${med.name}`,
+            body: `${med.dose} — Time to take your medication.`,
+            data: { medId: med._id }
+          }
+          // Send notifications in parallel
+          await Promise.all(subs.map(s => sendNotification(s, payload)))
+          console.log(`Sent notification for med ${med._id} at ${new Date().toISOString()}`)
+        } catch (e) {
+          console.error('Scheduled push error', e)
+        }
+      })
+
+      console.log(`Scheduled cron notification for med ${med._id} at ${med.time}`)
     }
   } catch (e) {
-    console.error('Failed to reschedule notifications on startup', e)
+    console.error('Failed to schedule notifications', e)
   }
 }
 
