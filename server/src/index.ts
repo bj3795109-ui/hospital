@@ -2,8 +2,11 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import mongoose from 'mongoose';
+import { connectDb } from './db';
 import healthRouter from './routes/health';
 import agoraRouter from './routes/agora';
+import actionsRouter from './routes/actions';
+import medicationsRouter from './routes/medications';
 
 dotenv.config();
 
@@ -34,6 +37,8 @@ app.use(cors(corsOptions));
 // Routes
 app.use('/health', healthRouter);
 app.use('/agora', agoraRouter);
+app.use('/actions', actionsRouter);
+app.use('/medications', medicationsRouter);
 
 const MONGO_URI = process.env.MONGO_URI || '';
 
@@ -53,6 +58,7 @@ async function start() {
       });
     }
 
+    await connectDb();
     app.listen(PORT, () => {
       console.log(`Server listening on port ${PORT}`);
     });
