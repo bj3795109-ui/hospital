@@ -35,6 +35,7 @@ export default function Home() {
   const [appointmentModalOpen, setAppointmentModalOpen] = useState(false)
   const [companionModalOpen, setCompanionModalOpen] = useState(false)
   const [loading, setLoading] = useState(true)
+  const [points, setPoints] = useState<number>(0)
 
   // Fetch medications and actions from DB on mount
   useEffect(() => {
@@ -46,6 +47,14 @@ export default function Home() {
         ])
         setMeds(medsRes.data)
         setActions(actionsRes.data)
+
+        // rewards endpoint returns { account, redemptions }
+        try {
+          const rewardsRes = (await api.get('/rewards')).data
+          setPoints(rewardsRes.account?.points || 0)
+        } catch (e) {
+          console.warn('Failed to fetch rewards', e)
+        }
       } catch (err) {
         console.error('Failed to fetch data:', err)
       } finally {
@@ -57,14 +66,24 @@ export default function Home() {
 
   function toggleTaken(id: string | number | undefined) {
     if (!id) return
-    setMeds((prev) =>
-      prev.map((m) => {
-        const mId = m._id || m.id
-        return mId === id ? { ...m, taken: !m.taken } : m
-      })
-    )
-    // Call API to update
-    api.patch(`/medications/${id}`, { taken: !meds.find((m) => (m._id || m.id) === id)?.taken })
+    // compute newTaken based on current meds state
+    const current = meds.find((m) => (m._id || m.id) === id)
+    const newTaken = !current?.taken
+    const updated = meds.map((m) => {
+      const mId = m._id || m.id
+      return mId === id ? { ...m, taken: newTaken } : m
+    })
+    setMeds(updated);
+
+    // Call API to update and update points from response
+    ;(async () => {
+      try {
+        const res = await api.patch(`/medications/${id}`, { taken: newTaken })
+        if (res.data?.account?.points != null) setPoints(res.data.account.points)
+      } catch (e) {
+        console.error('Failed to update medication', e)
+      }
+    })()
   }
 
   async function handleAddMedication(data: { name: string; dose: string; time: string }) {
@@ -112,6 +131,17 @@ export default function Home() {
     }
   }
 
+  async function deleteMedication(id: string | undefined) {
+    if (!id) return
+    if (!confirm('Delete this medication?')) return
+    try {
+      await api.delete(`/medications/${id}`)
+      setMeds(meds.filter((m) => (m._id || m.id) !== id))
+    } catch (err) {
+      alert('Failed to delete medication')
+    }
+  }
+
   return (
     <div className="min-h-screen bg-zinc-50 dark:bg-black font-sans p-6">
       <div className="max-w-6xl mx-auto space-y-6">
@@ -120,7 +150,7 @@ export default function Home() {
           <Card className="p-4">
             <CardHeader>
               <CardTitle>Reward Points</CardTitle>
-              <CardDescription>450</CardDescription>
+              <CardDescription>{points}</CardDescription>
             </CardHeader>
           </Card>
 
@@ -235,6 +265,14 @@ export default function Home() {
                       onClick={() => toggleTaken(m._id || m.id)}
                     >
                       {m.taken ? "Taken" : "Mark Taken"}
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => deleteMedication(m._id ?? (m.id != null ? String(m.id) : undefined))}
+                      className="text-red-500 hover:text-red-700"
+                    >
+                      <Trash2 className="h-4 w-4" />
                     </Button>
                   </div>
                 </div>

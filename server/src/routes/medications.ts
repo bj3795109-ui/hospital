@@ -3,6 +3,7 @@ import { getDb } from '../db';
 import { ObjectId } from 'mongodb';
 
 const router = Router();
+const POINTS_PER_MED_TAKEN = Number(process.env.POINTS_PER_MED_TAKEN) || 10;
 
 // GET /medications - fetch all medications
 router.get('/', async (req, res) => {
@@ -33,17 +34,34 @@ router.post('/', async (req, res) => {
   }
 });
 
-// PATCH /medications/:id - mark medication as taken/untaken
+// PATCH /medications/:id - mark medication as taken/untaken and reward points
 router.patch('/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const { taken } = req.body;
+    const { taken, userId } = req.body;
     const db = getDb();
     const result = await db.collection('medications').updateOne(
       { _id: new ObjectId(id) },
       { $set: { taken } }
     );
-    res.json({ success: result.modifiedCount > 0 });
+
+    // Increment the global account points when medication is marked taken
+    let account: any = null;
+    if (taken) {
+      try {
+        const filter = { key: 'global' };
+        await db.collection('account').updateOne(
+          filter,
+          { $inc: { points: POINTS_PER_MED_TAKEN }, $setOnInsert: { createdAt: new Date(), key: 'global' } },
+          { upsert: true }
+        );
+        account = await db.collection('account').findOne(filter);
+      } catch (err) {
+        console.error('Failed to update global account points', err);
+      }
+    }
+
+    res.json({ success: result.modifiedCount > 0, account });
   } catch (err) {
     res.status(500).json({ error: 'Failed to update medication' });
   }

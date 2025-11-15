@@ -7,6 +7,7 @@ import healthRouter from './routes/health';
 import agoraRouter from './routes/agora';
 import actionsRouter from './routes/actions';
 import medicationsRouter from './routes/medications';
+import rewardsRouter from './routes/rewards';
 
 dotenv.config();
 
@@ -39,6 +40,7 @@ app.use('/health', healthRouter);
 app.use('/agora', agoraRouter);
 app.use('/actions', actionsRouter);
 app.use('/medications', medicationsRouter);
+app.use('/rewards', rewardsRouter);
 
 const MONGO_URI = process.env.MONGO_URI || '';
 

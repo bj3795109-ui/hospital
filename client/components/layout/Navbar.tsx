@@ -39,11 +39,6 @@ export function Navbar() {
             ))}
           </div>
 
-          {/* Desktop CTA Button */}
-          <div className="hidden md:flex items-center gap-4">
-            <Button variant="outline">Sign In</Button>
-            <Button>Get Started</Button>
-          </div>
 
           {/* Mobile Menu */}
           <Sheet open={open} onOpenChange={setOpen}>
