@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Navbar } from "@/components/layout/Navbar";
 import QueryProvider from "@/components/QueryProvider";
+import PushRegistrar from '@/components/PushRegistrar'
 import "./globals.css";
 
 const geistSans = Geist({
@@ -28,6 +29,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <Navbar />
+        {/* PushRegistrar registers service worker and subscribes for push notifications */}
+        <PushRegistrar />
         <QueryProvider>{children}</QueryProvider>
       </body>
     </html>

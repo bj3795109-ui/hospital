@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { getDb } from '../db';
 import { ObjectId } from 'mongodb';
+import { scheduleNotificationForMedication, cancelScheduledNotification } from '../push';
 
 const router = Router();
 const POINTS_PER_MED_TAKEN = Number(process.env.POINTS_PER_MED_TAKEN) || 10;
@@ -16,6 +17,7 @@ router.get('/', async (req, res) => {
   }
 });
 
+
 // POST /medications - add a new medication
 router.post('/', async (req, res) => {
   try {
@@ -28,6 +30,13 @@ router.post('/', async (req, res) => {
       taken: false,
       createdAt: new Date(),
     });
+    const med = { _id: result.insertedId, name, dose, time, taken: false }
+    // schedule push notification for this medication
+    try {
+      await scheduleNotificationForMedication(med)
+    } catch (e) {
+      console.warn('Failed to schedule notification for new medication', e)
+    }
     res.json({ _id: result.insertedId, name, dose, time, taken: false });
   } catch (err) {
     res.status(500).json({ error: 'Failed to add medication' });
@@ -75,6 +84,12 @@ router.delete('/:id', async (req, res) => {
     const result = await db.collection('medications').deleteOne({
       _id: new ObjectId(id),
     });
+    // cancel scheduled notification if exists
+    try {
+      cancelScheduledNotification(id)
+    } catch (e) {
+      console.warn('Failed to cancel scheduled notification', e)
+    }
     res.json({ success: result.deletedCount > 0 });
   } catch (err) {
     res.status(500).json({ error: 'Failed to delete medication' });

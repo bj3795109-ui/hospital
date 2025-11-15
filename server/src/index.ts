@@ -8,6 +8,9 @@ import agoraRouter from './routes/agora';
 import actionsRouter from './routes/actions';
 import medicationsRouter from './routes/medications';
 import rewardsRouter from './routes/rewards';
+import pushRouter from './routes/push';
+import authRouter from './routes/auth';
+import { rescheduleAll } from './push';
 
 dotenv.config();
 
@@ -41,6 +44,8 @@ app.use('/agora', agoraRouter);
 app.use('/actions', actionsRouter);
 app.use('/medications', medicationsRouter);
 app.use('/rewards', rewardsRouter);
+  app.use('/push', pushRouter);
+  app.use('/auth', authRouter);
 
 const MONGO_URI = process.env.MONGO_URI || '';
 
@@ -61,6 +66,12 @@ async function start() {
     }
 
     await connectDb();
+    // reschedule any notifications for medications
+    try {
+      await rescheduleAll()
+    } catch (e) {
+      console.warn('Reschedule on startup failed', e)
+    }
     app.listen(PORT, () => {
       console.log(`Server listening on port ${PORT}`);
     });

@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu, Heart } from 'lucide-react';
+import { Menu, Heart, LogIn, UserPlus } from 'lucide-react';
 import { useState } from 'react';
 
 export function Navbar() {
@@ -37,6 +37,15 @@ export function Navbar() {
                 {item.label}
               </Link>
             ))}
+            {/* Login / Signup icons next to Home */}
+            <div className="flex items-center gap-2">
+              <Link href="/login" aria-label="Sign in" className="text-gray-600 hover:text-gray-900">
+                <LogIn className="w-5 h-5" />
+              </Link>
+              <Link href="/signup" aria-label="Sign up" className="text-gray-600 hover:text-gray-900">
+                <UserPlus className="w-5 h-5" />
+              </Link>
+            </div>
           </div>
 
 
